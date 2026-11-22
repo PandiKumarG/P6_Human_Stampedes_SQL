@@ -1,0 +1,108 @@
+PROJECT 6 – HUMAN STAMPEDE INCIDENTS ANALYSIS USING SQL
+========================================================
+
+1. PROJECT OVERVIEW
+-------------------
+This project analyzes historical human stampede incidents using PostgreSQL.
+The analysis focuses on incident distribution, recorded fatalities, country-level
+comparisons, rankings, continent-level summaries, and decade-wise patterns.
+
+Dataset: Human Stampedes
+Records: 183
+Columns: 7
+
+2. DATASET COLUMNS
+------------------
+1. Event ID          - Unique identifier for each incident.
+2. Event Name        - Name of the stampede event; some records use '-' where
+                       an event name is unavailable.
+3. Date              - Date on which the incident occurred.
+4. Number of Deaths  - Recorded number of fatalities.
+5. Country           - Country where the incident occurred.
+6. Place             - Place or city associated with the incident.
+7. Description       - Textual description of the incident.
+
+3. DATA PREPARATION
+-------------------
+- Event ID was checked for uniqueness.
+- Event Name values containing '-' were represented as 'Unknown' in the
+  relevant analysis query.
+- The source date values contained more than one format.
+- A separate DATE-typed column, event_date, was created to standardize dates.
+- The original Date column was retained.
+- The event_date column was used for date-related analysis.
+
+4. SQL ANALYSIS – BUSINESS QUESTIONS
+------------------------------------
+
+Q1. Identifying Countries with Above-Average Stampede Fatalities
+Business requirement:
+Identify countries whose average number of deaths per stampede incident is
+greater than the overall average number of deaths per incident across the
+entire dataset. For each qualifying country, calculate incident count, total
+fatalities, and average fatalities per incident.
+
+SQL concepts:
+- Scalar subquery
+- Common Table Expression (CTE)
+- GROUP BY
+- HAVING
+- COUNT, SUM, AVG
+- WHERE filtering
+- ORDER BY
+
+Q2. Ranking Stampede Incidents Within Each Country
+Business requirement:
+Rank stampede incidents within each country based on the number of deaths
+and identify incidents belonging to the top three distinct fatality levels.
+
+SQL concepts:
+- Window function: DENSE_RANK()
+- PARTITION BY
+- ORDER BY within the window
+- Common Table Expression (CTE)
+- Filtering window-function results
+
+Q3. Analyzing Stampede Incidents by Continent
+Business requirement:
+Analyze the number of recorded stampede incidents and total fatalities across
+continents by joining the main incident dataset with a supplementary
+country-to-continent mapping table. Countries without a mapping are classified
+as 'Unmapped'.
+
+Supplementary table:
+country_region_mapping
+- country
+- continent
+
+SQL concepts:
+- LEFT JOIN
+- COALESCE
+- GROUP BY
+- COUNT, SUM, AVG
+- Common Table Expression (CTE)
+- ORDER BY
+
+Q4. Decade-wise Stampede Fatality Analysis
+Business requirement:
+Analyze stampede incidents by decade, calculating total incidents, total
+fatalities, incidents with 100 or more deaths, and incidents with zero deaths.
+
+SQL concepts:
+- Date extraction using EXTRACT
+- Decade grouping
+- Conditional aggregation using COUNT and CASE WHEN
+- GROUP BY
+- SUM
+- ORDER BY
+
+5. TOOLS AND TECHNOLOGIES
+-------------------------
+- PostgreSQL
+- SQL
+
+6. PROJECT OBJECTIVE
+--------------------
+The objective is to strengthen practical SQL skills by translating business
+requirements into analytical queries and deriving meaningful insights from
+a historical incident dataset.
